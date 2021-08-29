@@ -1,6 +1,7 @@
 # my utility function
 よく使うような機能をあらかじめ関数化しておく。
 最悪忙しい時に fork したり、コピペしたりできるように...
+そのうち、privateのnpmモジュールにしたいと思っている。
 
 ### environment
 ---
