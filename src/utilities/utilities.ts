@@ -62,10 +62,7 @@ export const formatISOToDateTime = (isoDate: string | null): string => {
 };
 
 /**
- * NOTE: 数字7桁を郵便番号形式(xxx-xxxx)に変換する
- */
-/**
- *
+ * 数字7桁を郵便番号形式(xxx-xxxx)に変換する
  * @param num - 変換対象の7桁の number
  * @returns {string} - 7桁の数値であれば整形、それ以外の場合はエラー
  */
