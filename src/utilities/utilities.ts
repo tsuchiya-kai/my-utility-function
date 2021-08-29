@@ -24,24 +24,39 @@ export const objectOmit = <T extends Record<string, unknown>, U extends string>(
  * NOTE: 日付変換系
  */
 
-//  date → ISO規格
+/**
+ * @param {string | Dayjs} date -変換対象の date
+ * @returns {string} - ISO規格の日付
+ */
 export const formatDateToISO = (date: string | Dayjs): string => {
   return dayjs(date).toISOString();
 };
 
-//  ISO規格 → YYYY年M月D日
+/**
+ *
+ * @param {string | null} isoDate  - 変換対象のISO8601形式の文字列
+ * @returns {string} - YYYY年M月D日 or '-'
+ */
 export const formatISOToJaDate = (isoDate: string): string => {
+  if (isoDate === null) return '-';
   return dayjs(isoDate).format('YYYY[年]M[月]D[日]');
 };
 
-//  ISO規格 => YYYY/MM/DD
-export const formatISOToSlashDate = (isoDate: string): string => {
-  // NOTE: マイページの申し込み物件カードで引き渡し日がnullで受け取る可能性があるため条件分けしている
+/**
+ *
+ * @param {string | null} isoDate  - 変換対象のISO8601形式の文字列
+ * @returns {string} - YYYY/MM/DD or '-'
+ */
+export const formatISOToSlashDate = (isoDate: string | null): string => {
   if (isoDate === null) return '-';
   return dayjs(isoDate).format('YYYY/MM/DD');
 };
 
-//  ISO規格 => YYYY/MM/DD HH:mm(nullの場合は空文字を返す)
+/**
+ *
+ * @param {string | null} isoDate  - 変換対象のISO8601形式の文字列
+ * @returns {string} - YYYY/MM/DD HH:mm or '-'
+ */
 export const formatISOToDateTime = (isoDate: string | null): string => {
   return isoDate === null ? '' : dayjs(isoDate).format('YYYY/MM/DD HH:mm');
 };
@@ -49,12 +64,21 @@ export const formatISOToDateTime = (isoDate: string | null): string => {
 /**
  * NOTE: 数字7桁を郵便番号形式(xxx-xxxx)に変換する
  */
+/**
+ *
+ * @param num - 変換対象の7桁の number
+ * @returns {string} - 7桁の数値であれば整形、それ以外の場合はエラー
+ */
 export const formatPostcode = (num: number | null): string | void => {
-  // NOTE: 職業が無職 or その他の場合勤務先郵便番号がnullになるので条件分けしている
-  if (num === null) return '-';
-  const regex = /^\d{7}$/;
+  if (num === null) {
+    console.error('Error at formatPostcode(): postcode did not pass regex');
+    return;
+  }
+
   const postcode = num.toString();
-  return regex.test(postcode)
-    ? `${postcode.slice(0, 3)}-${postcode.slice(-4)}`
-    : console.error('Error at formatPostcode(): postcode did not pass regex');
+
+  if (/^\d{7}$/.test(postcode))
+    return `${postcode.slice(0, 3)}-${postcode.slice(-4)}`;
+
+  console.error('Error at formatPostcode(): postcode did not pass regex');
 };
