@@ -1,8 +1,21 @@
 import './style.css'
+import {objectOmit} from './utilities/utilities'
 
-const app = document.querySelector<HTMLDivElement>('#app')!
+type TestObj = {
+  test1:string;
+  test2:string;
+  test3:string;
+}
 
-app.innerHTML = `
-  <h1>Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+const testObj:TestObj = {
+  test1:'test',
+  test2:'test',
+  test3:'test'
+}
+
+const newObj = objectOmit<TestObj,'test1'>(testObj,'test1');
+
+console.log({
+  testObj,
+  newObj
+})
