@@ -8,7 +8,7 @@ import dayjs, { Dayjs } from 'dayjs';
  *
  * 例) const newObj = objectOmit<originObjType, 'deleteKey'>(originObj, 'deleteKey');
  */
-export const objectOmit = <T extends object, U extends string>(
+export const objectOmit = <T extends Record<string, unknown>, U extends string>(
   obj: T,
   deleteKey: string
 ): Omit<T, U> =>
