@@ -1,6 +1,6 @@
 import dayjs, { Dayjs } from 'dayjs';
- 
- /**
+
+/**
  * objectから特定のpropertyを除去する関数
  * @param {object} obj - 元の object
  * @param {string} deleteKey - 除去したい key
@@ -8,20 +8,17 @@ import dayjs, { Dayjs } from 'dayjs';
  *
  * 例) const newObj = objectOmit<originObjType, 'deleteKey'>(originObj, 'deleteKey');
  */
-  export const objectOmit = <T extends object, U extends string>(
-    obj: T,
-    deleteKey: string
-  ): Omit<T, U> =>
-    ((internalObj: T) => {
-      return ((internalDeleteKey: string): Omit<T, U> => {
-        const omit = ({ [internalDeleteKey]: _, ...newObject }) =>
-          newObject as Omit<T, U>;
-        return omit(internalObj);
-      })(deleteKey);
-    })(obj);
-
-
-
+export const objectOmit = <T extends object, U extends string>(
+  obj: T,
+  deleteKey: string
+): Omit<T, U> =>
+  ((internalObj: T) => {
+    return ((internalDeleteKey: string): Omit<T, U> => {
+      const omit = ({ [internalDeleteKey]: _, ...newObject }) =>
+        newObject as Omit<T, U>;
+      return omit(internalObj);
+    })(deleteKey);
+  })(obj);
 
 /**
  * NOTE: 日付変換系
